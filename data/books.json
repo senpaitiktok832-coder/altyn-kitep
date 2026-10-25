@@ -1,0 +1,33 @@
+[
+  { "id": "5-rus-rus", "title": "Русский язык", "subject": "Русский язык", "grade": 5, "lang": "rus", "year": "2023", "type": "student", "uploaded": true },
+  { "id": "5-kyr-kyr", "title": "Кыргыз тили", "subject": "Кыргызский язык", "grade": 5, "lang": "kyr", "year": "2023", "type": "student", "uploaded": false },
+  { "id": "5-rus-math", "title": "Математика", "subject": "Математика", "grade": 5, "lang": "rus", "year": "2023", "type": "student", "uploaded": true },
+  { "id": "5-kyr-math", "title": "Математика", "subject": "Математика", "grade": 5, "lang": "kyr", "year": "2023", "type": "student", "uploaded": false },
+  { "id": "5-rus-history", "title": "История", "subject": "История", "grade": 5, "lang": "rus", "year": "2023", "type": "student", "uploaded": false },
+  { "id": "5-kyr-history", "title": "Тарых", "subject": "История", "grade": 5, "lang": "kyr", "year": "2023", "type": "student", "uploaded": false },
+  { "id": "5-rus-bio", "title": "Биология", "subject": "Биология", "grade": 5, "lang": "rus", "year": "2023", "type": "student", "uploaded": false },
+  { "id": "5-kyr-bio", "title": "Биология", "subject": "Биология", "grade": 5, "lang": "kyr", "year": "2023", "type": "student", "uploaded": false },
+  { "id": "5-rus-geo", "title": "География", "subject": "География", "grade": 5, "lang": "rus", "year": "2023", "type": "student", "uploaded": false },
+  { "id": "5-kyr-geo", "title": "География", "subject": "География", "grade": 5, "lang": "kyr", "year": "2023", "type": "student", "uploaded": false },
+  { "id": "5-rus-eng", "title": "Английский язык", "subject": "Английский язык", "grade": 5, "lang": "rus", "year": "2023", "type": "student", "uploaded": true },
+  { "id": "5-kyr-eng", "title": "Англис тили", "subject": "Английский язык", "grade": 5, "lang": "kyr", "year": "2023", "type": "student", "uploaded": false },
+  { "id": "5-rus-info", "title": "Информатика", "subject": "Информатика", "grade": 5, "lang": "rus", "year": "2023", "type": "student", "uploaded": true },
+  { "id": "5-kyr-info", "title": "Информатика", "subject": "Информатика", "grade": 5, "lang": "kyr", "year": "2023", "type": "student", "uploaded": false },
+
+  { "id": "6-rus-rus", "title": "Русский язык", "subject": "Русский язык", "grade": 6, "lang": "rus", "year": "2023", "type": "student", "uploaded": true },
+  { "id": "6-kyr-kyr", "title": "Кыргыз тили", "subject": "Кыргызский язык", "grade": 6, "lang": "kyr", "year": "2023", "type": "student", "uploaded": true },
+  { "id": "6-kyr-lit", "title": "Кыргыз адабияты", "subject": "Литература", "grade": 6, "lang": "kyr", "year": "2023", "type": "student", "uploaded": true },
+  { "id": "6-rus-math", "title": "Математика", "subject": "Математика", "grade": 6, "lang": "rus", "year": "2023", "type": "student", "uploaded": true },
+  { "id": "6-kyr-math", "title": "Математика", "subject": "Математика", "grade": 6, "lang": "kyr", "year": "2023", "type": "student", "uploaded": false },
+  { "id": "6-rus-bio", "title": "Биология", "subject": "Биология", "grade": 6, "lang": "rus", "year": "2023", "type": "student", "uploaded": false },
+  { "id": "6-kyr-bio", "title": "Биология", "subject": "Биология", "grade": 6, "lang": "kyr", "year": "2023", "type": "student", "uploaded": true },
+  { "id": "6-rus-eng", "title": "Английский язык", "subject": "Английский язык", "grade": 6, "lang": "rus", "year": "2023", "type": "student", "uploaded": true },
+  { "id": "6-kyr-eng", "title": "Англис тили", "subject": "Английский язык", "grade": 6, "lang": "kyr", "year": "2023", "type": "student", "uploaded": false },
+  { "id": "6-rus-info", "title": "Информатика", "subject": "Информатика", "grade": 6, "lang": "rus", "year": "2023", "type": "student", "uploaded": false },
+  { "id": "6-kyr-info", "title": "Информатика", "subject": "Информатика", "grade": 6, "lang": "kyr", "year": "2023", "type": "student", "uploaded": true },
+
+  { "id": "7-rus-math-2023", "title": "Математика (2023)", "subject": "Математика", "grade": 7, "lang": "rus", "year": "2023", "type": "student", "uploaded": false },
+  { "id": "7-rus-math-2021", "title": "Математика (2021)", "subject": "Математика", "grade": 7, "lang": "rus", "year": "2021", "type": "student", "uploaded": false },
+  { "id": "7-kyr-math", "title": "Математика", "subject": "Математика", "grade": 7, "lang": "kyr", "year": "2023", "type": "student", "uploaded": false },
+  { "id": "7-rus-teacher-math", "title": "Математика (Методичка)", "subject": "Математика", "grade": 7, "lang": "rus", "year": "2023", "type": "teacher", "uploaded": false }
+]

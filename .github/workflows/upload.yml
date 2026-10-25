@@ -1,0 +1,27 @@
+name: Upload Books to Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Тег релиза (например, v3 для 7 класса)'
+        required: true
+        default: 'v3'
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Create Release and Upload Files
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ github.event.inputs.tag }}
+          name: "Книги ${{ github.event.inputs.tag }}"
+          files: books_to_upload/*.pdf
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

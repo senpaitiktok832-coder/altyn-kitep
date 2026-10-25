@@ -1,9 +1,10 @@
-import { View, Text, TouchableOpacity, StyleSheet, ActivityIndicator } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ActivityIndicator, Alert } from 'react-native';
 import { useLocalSearchParams, router } from 'expo-router';
 import { books } from '../../../data/books';
 import { WebView } from 'react-native-webview';
 import * as FileSystem from 'expo-file-system/legacy';
 import { useState, useEffect } from 'react';
+import { Ionicons } from '@expo/vector-icons';
 
 export default function BookScreen() {
   const { id } = useLocalSearchParams();
@@ -12,6 +13,7 @@ export default function BookScreen() {
   const [htmlUri, setHtmlUri] = useState(null);
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState(null);
+  const [isDownloaded, setIsDownloaded] = useState(false);
 
   useEffect(() => {
     if (!book || !book.url) return;
@@ -21,38 +23,40 @@ export default function BookScreen() {
       setErrorMsg(null);
 
       try {
-        const fileUri = FileSystem.cacheDirectory + `${id}.pdf`;
+        const fileUri = FileSystem.documentDirectory + `${id}.pdf`;
         const htmlFileUri = FileSystem.cacheDirectory + `viewer-${id}.html`;
 
-        // 1. Очищаем старые файлы
         const fileInfo = await FileSystem.getInfoAsync(fileUri);
-        if (fileInfo.exists) await FileSystem.deleteAsync(fileUri, { idempotent: true });
-        const htmlInfo = await FileSystem.getInfoAsync(htmlFileUri);
-        if (htmlInfo.exists) await FileSystem.deleteAsync(htmlFileUri, { idempotent: true });
+        let needsDownload = true;
 
-        // 2. Скачиваем
-        const downloadRes = await FileSystem.downloadAsync(book.url, fileUri, {
-          headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)' }
-        });
-
-        if (downloadRes.status !== 200) throw new Error(`Ошибка сервера: ${downloadRes.status}`);
-
-        // 3. Проверяем размер (если меньше 10 КБ - это точно не книга, а страница ошибки)
-        const downloadedInfo = await FileSystem.getInfoAsync(fileUri);
-        if (downloadedInfo.size < 10000) {
-           throw new Error('Файл слишком маленький. GitHub заблокировал скачивание (возможно, из-за VPN).');
+        if (fileInfo.exists) {
+          const base64Header = await FileSystem.readAsStringAsync(fileUri, {
+            encoding: FileSystem.EncodingType.Base64,
+            length: 4
+          });
+          if (atob(base64Header).includes('%PDF')) {
+            needsDownload = false;
+            setIsDownloaded(true);
+          } else {
+            await FileSystem.deleteAsync(fileUri, { idempotent: true });
+          }
         }
 
-        // 4. Проверяем формат файла (настоящий PDF начинается с "%PDF")
-        const base64Header = await FileSystem.readAsStringAsync(fileUri, {
-          encoding: FileSystem.EncodingType.Base64,
-          length: 4
-        });
-        if (!atob(base64Header).includes('%PDF')) {
-           throw new Error('Скачался не PDF. Проверьте ссылку на GitHub.');
+        if (needsDownload) {
+          const downloadRes = await FileSystem.downloadAsync(book.url, fileUri, {
+            headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)' }
+          });
+
+          if (downloadRes.status !== 200) throw new Error(`Ошибка сервера: ${downloadRes.status}`);
+
+          const downloadedInfo = await FileSystem.getInfoAsync(fileUri);
+          if (downloadedInfo.size < 10000) {
+            await FileSystem.deleteAsync(fileUri, { idempotent: true });
+            throw new Error('Файл слишком маленький. GitHub заблокировал скачивание.');
+          }
+          setIsDownloaded(true);
         }
 
-        // 5. Генерируем HTML для локального просмотра
         const htmlContent = `
           <!DOCTYPE html>
           <html>
@@ -115,6 +119,25 @@ export default function BookScreen() {
     preparePdf();
   }, [id, book]);
 
+  const confirmDelete = () => {
+    Alert.alert(
+      "Удалить книгу?",
+      "Книга будет удалена из памяти телефона. Вы сможете скачать её снова.",
+      [
+        { text: "Отмена", style: "cancel" },
+        { 
+          text: "Удалить", 
+          style: "destructive",
+          onPress: async () => {
+            const fileUri = FileSystem.documentDirectory + `${id}.pdf`;
+            await FileSystem.deleteAsync(fileUri, { idempotent: true });
+            router.back();
+          }
+        }
+      ]
+    );
+  };
+
   if (!book) return <Text style={styles.error}>Книга не найдена</Text>;
 
   if (!book.url) {
@@ -132,16 +155,22 @@ export default function BookScreen() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => router.back()}>
+        <TouchableOpacity onPress={() => router.back()} style={styles.backBtn}>
           <Text style={styles.backText}>← Назад</Text>
         </TouchableOpacity>
         <Text style={styles.headerTitle} numberOfLines={1}>{book.title}</Text>
+        
+        {isDownloaded && (
+          <TouchableOpacity onPress={confirmDelete} style={styles.deleteBtn}>
+            <Ionicons name="trash-outline" size={22} color="#d32f2f" />
+          </TouchableOpacity>
+        )}
       </View>
 
       {loading ? (
         <View style={styles.center}>
           <ActivityIndicator size="large" color="#8B6914" />
-          <Text style={styles.loadingText}>Скачиваем учебник...</Text>
+          <Text style={styles.loadingText}>Загрузка...</Text>
         </View>
       ) : errorMsg ? (
         <View style={styles.center}>
@@ -172,12 +201,13 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#F5F0E8', paddingTop: 50 },
   header: { flexDirection: 'row', alignItems: 'center', paddingHorizontal: 16, paddingBottom: 12, gap: 12 },
   headerTitle: { flex: 1, fontSize: 16, fontWeight: '600', color: '#2C2416' },
+  backBtn: { paddingVertical: 8 },
+  deleteBtn: { padding: 8, marginLeft: 4 },
   backText: { fontSize: 16, color: '#8B6914', fontWeight: '600' },
   title: { fontSize: 24, fontWeight: 'bold', color: '#2C2416', textAlign: 'center', marginTop: 20 },
   soon: { fontSize: 16, color: '#6B5D4F', textAlign: 'center', marginTop: 12 },
   error: { fontSize: 16, color: 'red', textAlign: 'center', paddingHorizontal: 20, marginBottom: 20, lineHeight: 24 },
   viewer: { flex: 1, backgroundColor: '#525659' },
-  backBtn: { paddingHorizontal: 16, paddingVertical: 8, alignSelf: 'flex-start' },
   center: { flex: 1, justifyContent: 'center', alignItems: 'center' },
   loadingText: { marginTop: 16, fontSize: 16, color: '#6B5D4F' },
   retryBtn: { backgroundColor: '#8B6914', paddingHorizontal: 20, paddingVertical: 10, borderRadius: 8 },
