@@ -11,7 +11,16 @@ const generatedBooks = booksData.map(book => {
   let url = '';
   
   if (book.uploaded) {
-    const releaseTag = `v${book.grade - 4}`; 
+    // ЖЕЛЕЗОБЕТОННАЯ ЛОГИКА ТЕГОВ
+    let releaseTag = 'v1'; // По умолчанию для 1-5 классов
+    
+    if (book.grade === 6) releaseTag = 'v2';
+    if (book.grade === 7) releaseTag = 'v3';
+    if (book.grade === 8) releaseTag = 'v4';
+    if (book.grade === 9) releaseTag = 'v5';
+    if (book.grade === 10) releaseTag = 'v6';
+    if (book.grade === 11) releaseTag = 'v7';
+
     url = `https://github.com/${GITHUB_USER}/${REPO}/releases/download/${releaseTag}/${book.id}.pdf`;
   }
 
