@@ -74,7 +74,6 @@ export default function BookScreen() {
         } catch (e) {}
         setSavedPage(savedPageVal);
 
-        // ГЕНЕРИРУЕМ HTML (ПОСТРАНИЧНЫЙ ПРОСМОТР)
         const htmlContent = `
           <!DOCTYPE html>
           <html>
@@ -125,18 +124,28 @@ export default function BookScreen() {
                     const page = await pdfDoc.getPage(pageNum);
                     const targetWidth = window.innerWidth - 10;
                     const viewport = page.getViewport({ scale: 1.0 });
-                    const scale = targetWidth / viewport.width;
+                    
+                    // ФИКС КАЧЕСТВА: Учитываем плотность пикселей экрана (Retina / AMOLED)
+                    // Умножаем на devicePixelRatio, чтобы картинка была четкой
+                    const dpr = window.devicePixelRatio || 2;
+                    const scale = (targetWidth / viewport.width) * Math.max(dpr, 2.5); 
+                    
                     const finalViewport = page.getViewport({ scale: scale });
                     
                     const canvas = document.createElement('canvas');
                     canvas.height = finalViewport.height;
                     canvas.width = finalViewport.width;
-                    canvas.style.width = '100%';
+                    // Визуально сжимаем до ширины экрана, но внутри разрешение огромное
+                    canvas.style.width = targetWidth + 'px';
+                    canvas.style.height = 'auto';
                     
                     container.innerHTML = '';
                     container.appendChild(canvas);
                     
-                    const context = canvas.getContext('2d');
+                    const context = canvas.getContext('2d', { alpha: false });
+                    context.imageSmoothingEnabled = true;
+                    context.imageSmoothingQuality = 'high';
+                    
                     await page.render({ canvasContext: context, viewport: finalViewport }).promise;
                     
                     window.ReactNativeWebView.postMessage(JSON.stringify({ type: 'PAGE_CHANGED', page: pageNum }));
@@ -154,7 +163,6 @@ export default function BookScreen() {
         await FileSystem.writeAsStringAsync(htmlFileUri, htmlContent);
         setHtmlUri(htmlFileUri);
         
-        // Сохраняем URI для передачи в WebView
         setTimeout(() => {
           if (webViewRef.current) {
             webViewRef.current.injectJavaScript(`window.initPdf('${fileUri}', ${savedPageVal}); true;`);
@@ -279,7 +287,6 @@ export default function BookScreen() {
             setDisplayZoomControls={false}
           />
           
-          {/* НИЖНЯЯ ПАНЕЛЬ НАВИГАЦИИ */}
           <View style={styles.navBar}>
             <TouchableOpacity onPress={() => changePage(-1)} style={styles.navBtn} disabled={currentPage <= 1}>
               <Ionicons name="chevron-back" size={28} color={currentPage <= 1 ? "#C7C7CC" : "#007AFF"} />
@@ -319,7 +326,6 @@ const styles = StyleSheet.create({
   retryBtn: { backgroundColor: '#007AFF', paddingHorizontal: 20, paddingVertical: 10, borderRadius: 8 },
   retryText: { color: '#FFF', fontWeight: 'bold' },
   
-  // Стили для нижней панели листания
   navBar: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -329,7 +335,7 @@ const styles = StyleSheet.create({
     borderTopColor: '#E5E5EA',
     paddingVertical: 10,
     paddingHorizontal: 20,
-    paddingBottom: 35, // Отступ для iPhone
+    paddingBottom: 35,
   },
   navBtn: {
     padding: 10,
