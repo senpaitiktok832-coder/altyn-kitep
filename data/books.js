@@ -360,14 +360,174 @@ export const books = [
     "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/3-kyr-science-p2-2025.pdf"
   },
   {
-    "id": "4-rus-math-2023",
+    "id": "4-kyr-math-2009",
     "title": "Математика",
     "subject": "Математика",
     "grade": 4,
-    "lang": "rus",
-    "year": "2023",
+    "lang": "kyr",
+    "year": "2009",
     "type": "student",
-    "url": ""
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/4-kyr-math-2009.pdf"
+  },
+  {
+    "id": "4-kyr-kyr-2015",
+    "title": "Кыргыз тили",
+    "subject": "Кыргызский язык",
+    "grade": 4,
+    "lang": "kyr",
+    "year": "2015",
+    "type": "student",
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/4-kyr-kyr-2015.pdf"
+  },
+  {
+    "id": "4-kyr-lit-2015",
+    "title": "Адабий окуу",
+    "subject": "Литература",
+    "grade": 4,
+    "lang": "kyr",
+    "year": "2015",
+    "type": "student",
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/4-kyr-lit-2015.pdf"
+  },
+  {
+    "id": "4-rus-rus-2015",
+    "title": "Русский язык",
+    "subject": "Русский язык",
+    "grade": 4,
+    "lang": "rus",
+    "year": "2015",
+    "type": "student",
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/4-rus-rus-2015.pdf"
+  },
+  {
+    "id": "4-rus-lit-2015",
+    "title": "Книга для чтения",
+    "subject": "Литература",
+    "grade": 4,
+    "lang": "rus",
+    "year": "2015",
+    "type": "student",
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/4-rus-lit-2015.pdf"
+  },
+  {
+    "id": "4-kyr-rus-2015",
+    "title": "Орус тили",
+    "subject": "Русский язык",
+    "grade": 4,
+    "lang": "kyr",
+    "year": "2015",
+    "type": "student",
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/4-kyr-rus-2015.pdf"
+  },
+  {
+    "id": "4-kyr-art-2015",
+    "title": "Көркөм өнөр",
+    "subject": "ИЗО",
+    "grade": 4,
+    "lang": "kyr",
+    "year": "2015",
+    "type": "student",
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/4-kyr-art-2015.pdf"
+  },
+  {
+    "id": "4-rus-art-2015",
+    "title": "ИЗО",
+    "subject": "ИЗО",
+    "grade": 4,
+    "lang": "rus",
+    "year": "2015",
+    "type": "student",
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/4-rus-art-2015.pdf"
+  },
+  {
+    "id": "4-kyr-music-2015",
+    "title": "Музыка",
+    "subject": "Музыка",
+    "grade": 4,
+    "lang": "kyr",
+    "year": "2015",
+    "type": "student",
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/4-kyr-music-2015.pdf"
+  },
+  {
+    "id": "4-rus-music-2015",
+    "title": "Музыка",
+    "subject": "Музыка",
+    "grade": 4,
+    "lang": "rus",
+    "year": "2015",
+    "type": "student",
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/4-rus-music-2015.pdf"
+  },
+  {
+    "id": "4-kyr-meken-2015",
+    "title": "Мекен таануу",
+    "subject": "Мекен тануу",
+    "grade": 4,
+    "lang": "kyr",
+    "year": "2015",
+    "type": "student",
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/4-kyr-meken-2015.pdf"
+  },
+  {
+    "id": "4-rus-meken-2015",
+    "title": "Родиноведение",
+    "subject": "Мекен тануу",
+    "grade": 4,
+    "lang": "rus",
+    "year": "2015",
+    "type": "student",
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/4-rus-meken-2015.pdf"
+  },
+  {
+    "id": "4-rus-eng-2018",
+    "title": "Английский язык",
+    "subject": "Английский язык",
+    "grade": 4,
+    "lang": "rus",
+    "year": "2018",
+    "type": "student",
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/4-rus-eng-2018.pdf"
+  },
+  {
+    "id": "4-rus-eng-p1-2025",
+    "title": "Английский язык (Pupil's Book Ч.1)",
+    "subject": "Английский язык",
+    "grade": 4,
+    "lang": "rus",
+    "year": "2025",
+    "type": "student",
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/4-rus-eng-p1-2025.pdf"
+  },
+  {
+    "id": "4-rus-eng-p2-2025",
+    "title": "Английский язык (Pupil's Book Ч.2)",
+    "subject": "Английский язык",
+    "grade": 4,
+    "lang": "rus",
+    "year": "2025",
+    "type": "student",
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/4-rus-eng-p2-2025.pdf"
+  },
+  {
+    "id": "4-rus-eng-p3-2025",
+    "title": "Английский язык (Pupil's Book Ч.3)",
+    "subject": "Английский язык",
+    "grade": 4,
+    "lang": "rus",
+    "year": "2025",
+    "type": "student",
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/4-rus-eng-p3-2025.pdf"
+  },
+  {
+    "id": "4-rus-eng-wb-2025",
+    "title": "Английский язык (Workbook)",
+    "subject": "Английский язык",
+    "grade": 4,
+    "lang": "rus",
+    "year": "2025",
+    "type": "student",
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/4-rus-eng-wb-2025.pdf"
   },
   {
     "id": "5-rus-math",
