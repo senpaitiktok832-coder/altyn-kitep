@@ -1020,123 +1020,253 @@ export const books = [
     "url": ""
   },
   {
-    "id": "6-rus-rus",
-    "title": "Русский язык",
-    "subject": "Русский язык",
-    "grade": 6,
-    "lang": "rus",
-    "year": "2023",
-    "type": "student",
-    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v2/6-rus-rus.pdf"
-  },
-  {
-    "id": "6-rus-math",
-    "title": "Математика",
-    "subject": "Математика",
-    "grade": 6,
-    "lang": "rus",
-    "year": "2023",
-    "type": "student",
-    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v2/6-rus-math.pdf"
-  },
-  {
-    "id": "6-rus-eng",
-    "title": "Английский язык",
-    "subject": "Английский язык",
-    "grade": 6,
-    "lang": "rus",
-    "year": "2023",
-    "type": "student",
-    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v2/6-rus-eng.pdf"
-  },
-  {
-    "id": "6-kyr-kyr",
-    "title": "Кыргыз тили",
-    "subject": "Кыргызский язык",
+    "id": "6-kyr-art-2018",
+    "title": "Көркөм өнөр (2018)",
+    "subject": "ИЗО",
     "grade": 6,
     "lang": "kyr",
-    "year": "2023",
+    "year": "2018",
     "type": "student",
-    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v2/6-kyr-kyr.pdf"
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/6-kyr-art-2018.pdf"
   },
   {
-    "id": "6-kyr-lit",
-    "title": "Кыргыз адабияты",
-    "subject": "Литература",
-    "grade": 6,
-    "lang": "kyr",
-    "year": "2023",
-    "type": "student",
-    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v2/6-kyr-lit.pdf"
-  },
-  {
-    "id": "6-kyr-bio",
-    "title": "Биология",
+    "id": "6-kyr-bio-2018",
+    "title": "Биология (2018)",
     "subject": "Биология",
     "grade": 6,
     "lang": "kyr",
-    "year": "2023",
+    "year": "2018",
     "type": "student",
-    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v2/6-kyr-bio.pdf"
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/6-kyr-bio-2018.pdf"
   },
   {
-    "id": "6-kyr-info",
-    "title": "Информатика",
+    "id": "6-kyr-eng-2018",
+    "title": "Англис тили (2018)",
+    "subject": "Английский язык",
+    "grade": 6,
+    "lang": "kyr",
+    "year": "2018",
+    "type": "student",
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/6-kyr-eng-2018.pdf"
+  },
+  {
+    "id": "6-kyr-info-2018",
+    "title": "Информатика (2018)",
     "subject": "Информатика",
     "grade": 6,
     "lang": "kyr",
-    "year": "2023",
+    "year": "2018",
     "type": "student",
-    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v2/6-kyr-info.pdf"
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/6-kyr-info-2018.pdf"
   },
   {
-    "id": "7-rus-math",
-    "title": "Алгебра",
-    "subject": "Математика",
-    "grade": 7,
-    "lang": "rus",
-    "year": "2023",
+    "id": "6-kyr-kyr-2018",
+    "title": "Кыргыз тили (2018)",
+    "subject": "Кыргызский язык",
+    "grade": 6,
+    "lang": "kyr",
+    "year": "2018",
     "type": "student",
-    "url": ""
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/6-kyr-kyr-2018.pdf"
   },
   {
-    "id": "8-rus-math",
-    "title": "Алгебра",
-    "subject": "Математика",
-    "grade": 8,
-    "lang": "rus",
-    "year": "2023",
+    "id": "6-kyr-lit-2018",
+    "title": "Кыргыз адабияты (2018)",
+    "subject": "Литература",
+    "grade": 6,
+    "lang": "kyr",
+    "year": "2018",
     "type": "student",
-    "url": ""
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/6-kyr-lit-2018.pdf"
   },
   {
-    "id": "9-rus-math",
-    "title": "Алгебра",
+    "id": "6-kyr-math-2026",
+    "title": "Математика (2026)",
     "subject": "Математика",
-    "grade": 9,
-    "lang": "rus",
-    "year": "2023",
+    "grade": 6,
+    "lang": "kyr",
+    "year": "2026",
     "type": "student",
-    "url": ""
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/6-kyr-math-2026.pdf"
   },
   {
-    "id": "10-rus-math",
-    "title": "Алгебра",
-    "subject": "Математика",
-    "grade": 10,
-    "lang": "rus",
-    "year": "2023",
+    "id": "6-kyr-music-v1-2018",
+    "title": "Музыка (В1, 2018)",
+    "subject": "Музыка",
+    "grade": 6,
+    "lang": "kyr",
+    "year": "2018",
     "type": "student",
-    "url": ""
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/6-kyr-music-v1-2018.pdf"
   },
   {
-    "id": "11-rus-math",
-    "title": "Алгебра",
-    "subject": "Математика",
-    "grade": 11,
-    "lang": "rus",
-    "year": "2023",
+    "id": "6-kyr-music-v2-2018",
+    "title": "Музыка (В2, 2018)",
+    "subject": "Музыка",
+    "grade": 6,
+    "lang": "kyr",
+    "year": "2018",
     "type": "student",
-    "url": ""
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/6-kyr-music-v2-2018.pdf"
+  },
+  {
+    "id": "6-kyr-rus-2018",
+    "title": "Орус тили (2018)",
+    "subject": "Русский язык",
+    "grade": 6,
+    "lang": "kyr",
+    "year": "2018",
+    "type": "student",
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/6-kyr-rus-2018.pdf"
+  },
+  {
+    "id": "6-kyr-science-p1-2026",
+    "title": "Табигый илимдер (Ч.1, 2026)",
+    "subject": "Естественные науки",
+    "grade": 6,
+    "lang": "kyr",
+    "year": "2026",
+    "type": "student",
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/6-kyr-science-p1-2026.pdf"
+  },
+  {
+    "id": "6-kyr-science-p2-2026",
+    "title": "Табигый илимдер (Ч.2, 2026)",
+    "subject": "Естественные науки",
+    "grade": 6,
+    "lang": "kyr",
+    "year": "2026",
+    "type": "student",
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/6-kyr-science-p2-2026.pdf"
+  },
+  {
+    "id": "6-kyr-society-2018",
+    "title": "Адам жана Коом (2018)",
+    "subject": "Человек и общество",
+    "grade": 6,
+    "lang": "kyr",
+    "year": "2018",
+    "type": "student",
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/6-kyr-society-2018.pdf"
+  },
+  {
+    "id": "6-kyr-tech-2018",
+    "title": "Технология (2018)",
+    "subject": "Технология",
+    "grade": 6,
+    "lang": "kyr",
+    "year": "2018",
+    "type": "student",
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/6-kyr-tech-2018.pdf"
+  },
+  {
+    "id": "6-rus-art-2018",
+    "title": "ИЗО (2018)",
+    "subject": "ИЗО",
+    "grade": 6,
+    "lang": "rus",
+    "year": "2018",
+    "type": "student",
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/6-rus-art-2018.pdf"
+  },
+  {
+    "id": "6-rus-music-2018",
+    "title": "Музыка (2018)",
+    "subject": "Музыка",
+    "grade": 6,
+    "lang": "rus",
+    "year": "2018",
+    "type": "student",
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/6-rus-music-2018.pdf"
+  },
+  {
+    "id": "6-rus-rus-2018",
+    "title": "Русский язык (2018)",
+    "subject": "Русский язык",
+    "grade": 6,
+    "lang": "rus",
+    "year": "2018",
+    "type": "student",
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/6-rus-rus-2018.pdf"
+  },
+  {
+    "id": "6-rus-eng-p1-2025",
+    "title": "Английский язык (Pupil's Book Ч.1, 2025)",
+    "subject": "Английский язык",
+    "grade": 6,
+    "lang": "rus",
+    "year": "2025",
+    "type": "student",
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/6-rus-eng-p1-2025.pdf"
+  },
+  {
+    "id": "6-rus-eng-p2-2025",
+    "title": "Английский язык (Pupil's Book Ч.2, 2025)",
+    "subject": "Английский язык",
+    "grade": 6,
+    "lang": "rus",
+    "year": "2025",
+    "type": "student",
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/6-rus-eng-p2-2025.pdf"
+  },
+  {
+    "id": "6-rus-eng-p3-2025",
+    "title": "Английский язык (Pupil's Book Ч.3, 2025)",
+    "subject": "Английский язык",
+    "grade": 6,
+    "lang": "rus",
+    "year": "2025",
+    "type": "student",
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/6-rus-eng-p3-2025.pdf"
+  },
+  {
+    "id": "6-rus-eng-p4-2025",
+    "title": "Английский язык (Pupil's Book Ч.4, 2025)",
+    "subject": "Английский язык",
+    "grade": 6,
+    "lang": "rus",
+    "year": "2025",
+    "type": "student",
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/6-rus-eng-p4-2025.pdf"
+  },
+  {
+    "id": "6-rus-eng-wb-2025",
+    "title": "Английский язык (Workbook, 2025)",
+    "subject": "Английский язык",
+    "grade": 6,
+    "lang": "rus",
+    "year": "2025",
+    "type": "student",
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/6-rus-eng-wb-2025.pdf"
+  },
+  {
+    "id": "6-rus-math-2026",
+    "title": "Математика (2026)",
+    "subject": "Математика",
+    "grade": 6,
+    "lang": "rus",
+    "year": "2026",
+    "type": "student",
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/6-rus-math-2026.pdf"
+  },
+  {
+    "id": "6-rus-science-p1-2026",
+    "title": "Естественные науки (Ч.1, 2026)",
+    "subject": "Естественные науки",
+    "grade": 6,
+    "lang": "rus",
+    "year": "2026",
+    "type": "student",
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/6-rus-science-p1-2026.pdf"
+  },
+  {
+    "id": "6-rus-science-p2-2026",
+    "title": "Естественные науки (Ч.2, 2026)",
+    "subject": "Естественные науки",
+    "grade": 6,
+    "lang": "rus",
+    "year": "2026",
+    "type": "student",
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/6-rus-science-p2-2026.pdf"
   }
 ];

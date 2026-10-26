@@ -7,21 +7,16 @@ const booksData = JSON.parse(fs.readFileSync(jsonPath, 'utf8'));
 const GITHUB_USER = 'senpaitiktok832-coder';
 const REPO = 'altyn-kitep';
 
+// ВСЕ КНИГИ БУДЕМ БРАТЬ ИЗ РЕЛИЗА V1
+// (Если захочешь разделять классы по релизам, тут можно будет добавить условия)
+const RELEASE_TAG = 'v1'; 
+
 const generatedBooks = booksData.map(book => {
   let url = '';
   
   if (book.uploaded) {
-    // ЖЕЛЕЗОБЕТОННАЯ ЛОГИКА ТЕГОВ ДЛЯ РЕЛИЗОВ
-    let releaseTag = 'v1'; // По умолчанию для 1-5 классов
-    
-    if (book.grade === 6) releaseTag = 'v2';
-    if (book.grade === 7) releaseTag = 'v3';
-    if (book.grade === 8) releaseTag = 'v4';
-    if (book.grade === 9) releaseTag = 'v5';
-    if (book.grade === 10) releaseTag = 'v6';
-    if (book.grade === 11) releaseTag = 'v7';
-
-    url = `https://github.com/${GITHUB_USER}/${REPO}/releases/download/${releaseTag}/${book.id}.pdf`;
+    // Формируем прямую ссылку на скачивание файла из релиза
+    url = `https://github.com/${GITHUB_USER}/${REPO}/releases/download/${RELEASE_TAG}/${book.id}.pdf`;
   }
 
   return {
