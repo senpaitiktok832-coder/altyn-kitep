@@ -2,11 +2,11 @@
   "expo": {
     "name": "Алтын китеп",
     "slug": "altyn-kitep",
+    "scheme": "altynkitep",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.jpg",
     "userInterfaceStyle": "light",
-    "newArchEnabled": false,
     "plugins": [
       "expo-router",
       [

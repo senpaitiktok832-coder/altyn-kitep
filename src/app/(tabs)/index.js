@@ -8,7 +8,7 @@ import { books } from '../../../data/books';
 const GRADES = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
 
 export default function CatalogScreen() {
-  const [selectedGrade, setSelectedGrade] = useState(5);
+  const [selectedGrade, setSelectedGrade] = useState(3);
   const [downloadedBooks, setDownloadedBooks] = useState({});
   const [isChecking, setIsChecking] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
@@ -40,18 +40,13 @@ export default function CatalogScreen() {
      b.subject.toLowerCase().includes(searchQuery.toLowerCase()))
   );
 
-  // ГРУППИРОВКА: В 1 классе по названию (Алиппе отдельно), в остальных по предмету
   const groupedBooks = gradeBooks.reduce((acc, book) => {
     let groupName = book.subject;
-    
     if (book.grade === 1) {
-      // Если это Алиппе или Букварь - даем им отдельные имена
       if (book.title.toLowerCase().includes('алиппе') || book.title.toLowerCase().includes('буквар')) {
-        // Берем первые два слова из названия (Алиппе, Наристе алиппе, Букварь)
         groupName = book.title.split(' ').slice(0, 2).join(' ').replace(/,/g, '');
       }
     }
-
     if (!acc[groupName]) acc[groupName] = [];
     acc[groupName].push(book);
     return acc;
@@ -63,7 +58,6 @@ export default function CatalogScreen() {
   }));
 
   const handleItemPress = (itemGroup) => {
-    // Если книга только одна - открываем сразу
     if (itemGroup.books.length === 1) {
       const book = itemGroup.books[0];
       if (book.url) {
@@ -73,7 +67,6 @@ export default function CatalogScreen() {
       }
       return;
     }
-    // Если книг несколько - показываем окно выбора
     setSelectedSubject(itemGroup);
     setModalVisible(true);
   };
@@ -91,11 +84,15 @@ export default function CatalogScreen() {
     if (s.includes('хими')) return { name: 'flask-outline' };
     if (s.includes('биолог')) return { name: 'leaf-outline' };
     if (s.includes('геогр')) return { name: 'earth-outline' };
-    if (s.includes('истор')) return { name: 'time-outline' };
+    if (s.includes('истор') || s.includes('тарых')) return { name: 'time-outline' };
     if (s.includes('англ')) return { name: 'language-outline' };
     if (s.includes('кыргыз') || s.includes('кырг') || s.includes('алиппе')) return { name: 'chatbubbles-outline' };
-    if (s.includes('рус') || s.includes('буквар') || s.includes('литерет')) return { name: 'document-text-outline' };
+    if (s.includes('рус') || s.includes('буквар') || s.includes('литерет') || s.includes('чтен')) return { name: 'document-text-outline' };
     if (s.includes('информ') || s.includes('ихт')) return { name: 'laptop-outline' };
+    if (s.includes('изо') || s.includes('көркөм')) return { name: 'color-palette-outline' };
+    if (s.includes('музык')) return { name: 'musical-notes-outline' };
+    if (s.includes('наук') || s.includes('айлана') || s.includes('мир')) return { name: 'flask-outline' };
+    if (s.includes('мекен') || s.includes('родин')) return { name: 'map-outline' };
     return { name: 'book-outline' };
   };
 
