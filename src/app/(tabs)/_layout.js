@@ -1,35 +1,38 @@
-import { Tabs } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
+import { Tabs } from 'expo-router';
+import { useTheme } from '../../context/ThemeContext';
 
 export default function TabLayout() {
+  const { theme } = useTheme();
+
   return (
     <Tabs
       screenOptions={{
         headerShown: false,
         tabBarStyle: {
-          backgroundColor: '#F8F6EF',
-          borderTopColor: '#E5DEC9',
-          height: 65,
-          paddingBottom: 10,
-          paddingTop: 8,
+          backgroundColor: theme.card, // Теперь панель меняет цвет
+          borderTopColor: theme.border,
+          height: 85,
+          paddingBottom: 30,
+          paddingTop: 10,
         },
-        tabBarActiveTintColor: '#8C7653',
-        tabBarInactiveTintColor: '#C2B69A',
-        tabBarLabelStyle: { fontSize: 12, fontWeight: '600' },
+        tabBarActiveTintColor: theme.accent,
+        tabBarInactiveTintColor: theme.subtext,
+        tabBarLabelStyle: { fontSize: 11, fontWeight: '500' },
       }}
     >
       <Tabs.Screen
         name="index"
         options={{
           title: 'Библиотека',
-          tabBarIcon: ({ color }) => <Ionicons name="library" size={26} color={color} />,
+          tabBarIcon: ({ color }) => <Ionicons name="library" size={24} color={color} />,
         }}
       />
       <Tabs.Screen
         name="settings"
         options={{
           title: 'Настройки',
-          tabBarIcon: ({ color }) => <Ionicons name="settings" size={26} color={color} />,
+          tabBarIcon: ({ color }) => <Ionicons name="settings" size={24} color={color} />,
         }}
       />
     </Tabs>

@@ -1,12 +1,15 @@
 import { Ionicons } from '@expo/vector-icons';
 import * as FileSystem from 'expo-file-system/legacy';
 import { router, useLocalSearchParams } from 'expo-router';
+import * as ScreenOrientation from 'expo-screen-orientation';
 import { useEffect, useRef, useState } from 'react';
 import { ActivityIndicator, Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { books } from '../../../data/books';
+import { useTheme } from '../../context/ThemeContext';
 
 export default function BookScreen() {
+  const { theme, isDark } = useTheme();
   const { id } = useLocalSearchParams();
   const book = books.find((b) => b.id === id);
   
@@ -14,20 +17,32 @@ export default function BookScreen() {
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState(null);
   const [isDownloaded, setIsDownloaded] = useState(false);
-  
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const [savedPage, setSavedPage] = useState(null);
+  const [isLandscape, setIsLandscape] = useState(false);
+  const [pageText, setPageText] = useState(''); // Храним текст текущей страницы
 
   const webViewRef = useRef(null);
 
   useEffect(() => {
+    return () => { ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP); };
+  }, []);
+
+  const toggleOrientation = async () => {
+    if (isLandscape) {
+      await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
+      setIsLandscape(false);
+    } else {
+      await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE);
+      setIsLandscape(true);
+    }
+  };
+
+  useEffect(() => {
     if (!book || !book.url) return;
-
     const preparePdf = async () => {
-      setLoading(true);
-      setErrorMsg(null);
-
+      setLoading(true); setErrorMsg(null);
       try {
         const fileUri = FileSystem.documentDirectory + `${id}.pdf`;
         const htmlFileUri = FileSystem.cacheDirectory + `viewer-${id}-${Date.now()}.html`;
@@ -37,26 +52,13 @@ export default function BookScreen() {
         let needsDownload = true;
 
         if (fileInfo.exists) {
-          try {
-            const base64Header = await FileSystem.readAsStringAsync(fileUri, {
-              encoding: FileSystem.EncodingType.Base64,
-              length: 4
-            });
-            if (atob(base64Header).includes('%PDF')) {
-              needsDownload = false;
-              setIsDownloaded(true); 
-            } else {
-              await FileSystem.deleteAsync(fileUri, { idempotent: true });
-            }
-          } catch (e) {
-            await FileSystem.deleteAsync(fileUri, { idempotent: true });
-          }
+          const base64Header = await FileSystem.readAsStringAsync(fileUri, { encoding: FileSystem.EncodingType.Base64, length: 4 });
+          if (atob(base64Header).includes('%PDF')) { needsDownload = false; setIsDownloaded(true); }
+          else await FileSystem.deleteAsync(fileUri, { idempotent: true });
         }
 
         if (needsDownload) {
-          const downloadRes = await FileSystem.downloadAsync(book.url, fileUri, {
-            headers: { 'User-Agent': 'Mozilla/5.0' }
-          });
+          const downloadRes = await FileSystem.downloadAsync(book.url, fileUri, { headers: { 'User-Agent': 'Mozilla/5.0' } });
           if (downloadRes.status !== 200) throw new Error(`Ошибка скачивания: ${downloadRes.status}`);
           setIsDownloaded(true);
         }
@@ -65,287 +67,165 @@ export default function BookScreen() {
         try {
           const bookmarkInfo = await FileSystem.getInfoAsync(bookmarkFileUri);
           if (bookmarkInfo.exists) {
-            const bookmarkData = await FileSystem.readAsStringAsync(bookmarkFileUri);
-            if (bookmarkData) {
-              const parsed = JSON.parse(bookmarkData);
-              if (parsed.page) savedPageVal = parsed.page;
-            }
+            const parsed = JSON.parse(await FileSystem.readAsStringAsync(bookmarkFileUri));
+            if (parsed.page) savedPageVal = parsed.page;
           }
         } catch (e) {}
         setSavedPage(savedPageVal);
 
+        // Передаем isDark в HTML для инверсии цветов
         const htmlContent = `
-          <!DOCTYPE html>
-          <html>
-            <head>
-              <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-              <style>
-                body { margin: 0; padding: 0; background-color: #525659; display: flex; justify-content: center; }
-                #pdf-container { display: flex; justify-content: center; width: 100%; padding-bottom: 80px; }
-                canvas { max-width: 100%; height: auto; box-shadow: 0 4px 10px rgba(0,0,0,0.5); margin-top: 10px; }
-                #status { color: #fff; text-align: center; margin-top: 50px; font-family: sans-serif; font-size: 16px; }
-              </style>
-              <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-            </head>
-            <body>
-              <div id="status">Загрузка документа...</div>
-              <div id="pdf-container"></div>
-              <script>
-                let pdfDoc = null;
-                let pageNum = 1;
-                let rendering = false;
-
-                window.initPdf = async function(uri, startPage) {
-                  try {
-                    if (typeof pdfjsLib === 'undefined') throw new Error('Нет интернета');
-                    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-                    
-                    pdfDoc = await pdfjsLib.getDocument(uri).promise;
-                    document.getElementById('status').style.display = 'none';
-                    
-                    window.ReactNativeWebView.postMessage(JSON.stringify({ type: 'INIT', totalPages: pdfDoc.numPages }));
-                    renderPage(startPage || 1);
-                  } catch (err) {
-                    document.getElementById('status').innerText = 'Ошибка: ' + err.message;
-                    document.getElementById('status').style.color = '#ff6b6b';
-                  }
-                }
-
-                window.renderPage = async function(num) {
-                  if (!pdfDoc || rendering) return;
-                  if (num < 1 || num > pdfDoc.numPages) return;
-                  
-                  rendering = true;
-                  pageNum = num;
-                  const container = document.getElementById('pdf-container');
-                  container.innerHTML = '<div id="status">Загрузка страницы...</div>';
-                  
-                  try {
-                    const page = await pdfDoc.getPage(pageNum);
-                    const targetWidth = window.innerWidth - 10;
-                    const viewport = page.getViewport({ scale: 1.0 });
-                    
-                    // ФИКС КАЧЕСТВА: Учитываем плотность пикселей экрана (Retina / AMOLED)
-                    // Умножаем на devicePixelRatio, чтобы картинка была четкой
-                    const dpr = window.devicePixelRatio || 2;
-                    const scale = (targetWidth / viewport.width) * Math.max(dpr, 2.5); 
-                    
-                    const finalViewport = page.getViewport({ scale: scale });
-                    
-                    const canvas = document.createElement('canvas');
-                    canvas.height = finalViewport.height;
-                    canvas.width = finalViewport.width;
-                    // Визуально сжимаем до ширины экрана, но внутри разрешение огромное
-                    canvas.style.width = targetWidth + 'px';
-                    canvas.style.height = 'auto';
-                    
-                    container.innerHTML = '';
-                    container.appendChild(canvas);
-                    
-                    const context = canvas.getContext('2d', { alpha: false });
-                    context.imageSmoothingEnabled = true;
-                    context.imageSmoothingQuality = 'high';
-                    
-                    await page.render({ canvasContext: context, viewport: finalViewport }).promise;
-                    
-                    window.ReactNativeWebView.postMessage(JSON.stringify({ type: 'PAGE_CHANGED', page: pageNum }));
-                  } catch (e) {
-                    container.innerHTML = '<div id="status" style="color:red">Ошибка отрисовки</div>';
-                  } finally {
-                    rendering = false;
-                  }
-                }
-              </script>
-            </body>
-          </html>
-        `;
-
+          <!DOCTYPE html><html><head><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+          <style>
+            body { margin: 0; padding: 0; background-color: ${isDark ? '#121212' : '#525659'}; display: flex; justify-content: center; } 
+            #pdf-container { display: flex; justify-content: center; width: 100%; padding-bottom: 120px; } 
+            canvas { max-width: 100%; height: auto; box-shadow: 0 4px 10px rgba(0,0,0,0.5); margin-top: 10px; 
+              /* Инверсия цветов для ночного чтения */
+              ${isDark ? 'filter: invert(0.9) hue-rotate(180deg);' : ''} 
+            } 
+            #status { color: #fff; text-align: center; margin-top: 50px; }
+          </style>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script></head>
+          <body><div id="status">Загрузка...</div><div id="pdf-container"></div>
+          <script>
+            let pdfDoc = null, pageNum = 1, rendering = false;
+            window.initPdf = async function(uri, startPage) {
+              try {
+                if (typeof pdfjsLib === 'undefined') throw new Error('Нет интернета');
+                pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+                pdfDoc = await pdfjsLib.getDocument(uri).promise;
+                document.getElementById('status').style.display = 'none';
+                window.ReactNativeWebView.postMessage(JSON.stringify({ type: 'INIT', totalPages: pdfDoc.numPages }));
+                renderPage(startPage || 1);
+              } catch (err) { document.getElementById('status').innerText = 'Ошибка: ' + err.message; }
+            }
+            window.renderPage = async function(num) {
+              if (!pdfDoc || rendering || num < 1 || num > pdfDoc.numPages) return;
+              rendering = true; pageNum = num;
+              const container = document.getElementById('pdf-container');
+              container.innerHTML = '<div id="status">Загрузка...</div>';
+              try {
+                const page = await pdfDoc.getPage(pageNum);
+                const targetWidth = window.innerWidth - 10;
+                const viewport = page.getViewport({ scale: 1.0 });
+                const dpr = window.devicePixelRatio || 2;
+                const finalViewport = page.getViewport({ scale: (targetWidth / viewport.width) * Math.max(dpr, 2.5) });
+                const canvas = document.createElement('canvas');
+                canvas.height = finalViewport.height; canvas.width = finalViewport.width;
+                canvas.style.width = targetWidth + 'px'; canvas.style.height = 'auto';
+                container.innerHTML = ''; container.appendChild(canvas);
+                const context = canvas.getContext('2d', { alpha: false });
+                context.imageSmoothingEnabled = true; context.imageSmoothingQuality = 'high';
+                await page.render({ canvasContext: context, viewport: finalViewport }).promise;
+                
+                // Извлекаем текст страницы для ИИ
+                const textContent = await page.getTextContent();
+                const text = textContent.items.map(item => item.str).join(' ');
+                
+                window.ReactNativeWebView.postMessage(JSON.stringify({ type: 'PAGE_CHANGED', page: pageNum, text: text }));
+              } catch (e) { container.innerHTML = '<div id="status">Ошибка</div>'; }
+              finally { rendering = false; }
+            }
+          </script></body></html>`;
         await FileSystem.writeAsStringAsync(htmlFileUri, htmlContent);
         setHtmlUri(htmlFileUri);
-        
-        setTimeout(() => {
-          if (webViewRef.current) {
-            webViewRef.current.injectJavaScript(`window.initPdf('${fileUri}', ${savedPageVal}); true;`);
-          }
-        }, 500);
-
-      } catch (e) {
-        setErrorMsg(e.message || 'Ошибка при загрузке');
-      } finally {
-        setLoading(false);
-      }
+        setTimeout(() => { if (webViewRef.current) webViewRef.current.injectJavaScript(`window.initPdf('${fileUri}', ${savedPageVal}); true;`); }, 500);
+      } catch (e) { setErrorMsg(e.message || 'Ошибка'); } finally { setLoading(false); }
     };
-
     preparePdf();
-  }, [id, book]);
+  }, [id, book, isDark]); // Перерендериваем при смене темы
 
-  const onMessage = async (event) => {
+  const onMessage = (event) => {
     try {
       const data = JSON.parse(event.nativeEvent.data);
-      if (data.type === 'INIT') {
-        setTotalPages(data.totalPages);
-      } else if (data.type === 'PAGE_CHANGED') {
+      if (data.type === 'INIT') setTotalPages(data.totalPages);
+      else if (data.type === 'PAGE_CHANGED') {
         setCurrentPage(data.page);
+        if (data.text) setPageText(data.text); // Сохраняем текст
       }
     } catch (e) {}
   };
 
-  const changePage = (direction) => {
-    const newPage = currentPage + direction;
-    if (newPage >= 1 && newPage <= totalPages) {
-      webViewRef.current.injectJavaScript(`window.renderPage(${newPage}); true;`);
-    }
+  const changePage = (dir) => {
+    const newPage = currentPage + dir;
+    if (newPage >= 1 && newPage <= totalPages) webViewRef.current.injectJavaScript(`window.renderPage(${newPage}); true;`);
   };
 
   const saveBookmark = async () => {
-    try {
-      const bookmarkFileUri = FileSystem.documentDirectory + `bookmark_${id}.json`;
-      await FileSystem.writeAsStringAsync(bookmarkFileUri, JSON.stringify({ page: currentPage }));
-      setSavedPage(currentPage);
-      Alert.alert("Готово", `Закладка сохранена на странице ${currentPage}!`);
-    } catch (e) {
-      Alert.alert("Ошибка", "Не удалось сохранить закладку.");
+    await FileSystem.writeAsStringAsync(FileSystem.documentDirectory + `bookmark_${id}.json`, JSON.stringify({ page: currentPage }));
+    setSavedPage(currentPage); Alert.alert("Готово", `Закладка на стр. ${currentPage}!`);
+  };
+
+  const goToBookmark = () => { if (savedPage) webViewRef.current.injectJavaScript(`window.renderPage(${savedPage}); true;`); };
+
+  const askAI = () => { router.push({ pathname: '/ai', params: { contextBook: book.title, contextPage: currentPage } }); };
+  
+  // Кнопка "Объясни страницу"
+  const explainPage = () => {
+    if (!pageText || pageText.trim().length < 10) {
+      return Alert.alert("Ошибка", "Не удалось распознать текст на этой странице. Возможно, это картинка.");
     }
+    router.push({ 
+      pathname: '/ai', 
+      params: { 
+        contextBook: book.title, 
+        contextPage: currentPage,
+        pageTextToExplain: pageText.substring(0, 1500) // Обрезаем, чтобы не превышать лимиты
+      } 
+    });
   };
 
-  const goToBookmark = () => {
-    if (savedPage) {
-      webViewRef.current.injectJavaScript(`window.renderPage(${savedPage}); true;`);
-    }
-  };
-
-  const confirmDelete = () => {
-    Alert.alert("Удалить книгу?", "Книга и закладки будут удалены.", [
-      { text: "Отмена", style: "cancel" },
-      { text: "Удалить", style: "destructive", onPress: async () => {
-          await FileSystem.deleteAsync(FileSystem.documentDirectory + `${id}.pdf`, { idempotent: true });
-          await FileSystem.deleteAsync(FileSystem.documentDirectory + `bookmark_${id}.json`, { idempotent: true });
-          router.back();
-      }}
-    ]);
-  };
-
-  if (!book) return <Text style={styles.error}>Книга не найдена</Text>;
-
-  if (!book.url) {
-    return (
-      <View style={styles.container}>
-        <TouchableOpacity style={styles.backBtn} onPress={() => router.back()}>
-          <Text style={styles.backText}>← Назад</Text>
-        </TouchableOpacity>
-        <Text style={styles.title}>{book.title}</Text>
-        <Text style={styles.soon}>Скоро появится</Text>
-      </View>
-    );
-  }
+  if (!book) return <Text style={{ color: theme.text }}>Книга не найдена</Text>;
 
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <TouchableOpacity onPress={() => router.back()} style={styles.backBtn}>
-          <Ionicons name="chevron-back" size={28} color="#C29B57" />
-        </TouchableOpacity>
-        <Text style={styles.headerTitle} numberOfLines={1}>{book.title}</Text>
-        
-        <TouchableOpacity onPress={saveBookmark} style={styles.headerIcon}>
-          <Ionicons name={savedPage === currentPage ? "bookmark" : "bookmark-outline"} size={24} color="#C29B57" />
-        </TouchableOpacity>
-
-        {isDownloaded && (
-          <TouchableOpacity onPress={confirmDelete} style={styles.headerIcon}>
-            <Ionicons name="trash-outline" size={22} color="#FF3B30" />
-          </TouchableOpacity>
-        )}
+    <View style={[styles.container, { backgroundColor: theme.bg }]}>
+      <View style={[styles.header, { backgroundColor: theme.bg, borderBottomColor: theme.border }]}>
+        <TouchableOpacity onPress={() => router.back()} style={styles.backBtn}><Ionicons name="chevron-back" size={28} color={theme.accent} /></TouchableOpacity>
+        <Text style={[styles.headerTitle, { color: theme.text }]} numberOfLines={1}>{book.title}</Text>
+        <TouchableOpacity onPress={toggleOrientation} style={styles.headerIcon}><Ionicons name={isLandscape ? "contract-outline" : "expand-outline"} size={24} color={theme.accent} /></TouchableOpacity>
+        <TouchableOpacity onPress={saveBookmark} style={styles.headerIcon}><Ionicons name={savedPage === currentPage ? "bookmark" : "bookmark-outline"} size={24} color={theme.accent} /></TouchableOpacity>
       </View>
 
-      {loading ? (
-        <View style={styles.center}>
-          <ActivityIndicator size="large" color="#C29B57" />
-          <Text style={styles.loadingText}>Загрузка...</Text>
-        </View>
-      ) : errorMsg ? (
-        <View style={styles.center}>
-          <Text style={styles.error}>{errorMsg}</Text>
-          <TouchableOpacity style={styles.retryBtn} onPress={() => router.replace(`/book/${id}`)}>
-            <Text style={styles.retryText}>Попробовать снова</Text>
-          </TouchableOpacity>
-        </View>
-      ) : htmlUri ? (
+      {loading ? <ActivityIndicator size="large" color={theme.accent} style={{ flex: 1 }} /> : errorMsg ? <Text style={{ color: 'red', textAlign: 'center', marginTop: 50 }}>{errorMsg}</Text> : (
         <View style={{ flex: 1 }}>
-          <WebView
-            ref={webViewRef}
-            style={styles.viewer}
-            originWhitelist={['*']}
-            source={{ uri: htmlUri }}
-            onMessage={onMessage}
-            allowFileAccess={true}
-            allowFileAccessFromFileURLs={true}
-            allowUniversalAccessFromFileURLs={true}
-            javaScriptEnabled={true}
-            domStorageEnabled={true}
-            setBuiltInZoomControls={true}
-            setDisplayZoomControls={false}
-          />
+          <WebView ref={webViewRef} style={{ flex: 1, backgroundColor: isDark ? '#121212' : '#525659' }} originWhitelist={['*']} source={{ uri: htmlUri }} onMessage={onMessage} allowFileAccess={true} allowFileAccessFromFileURLs={true} allowUniversalAccessFromFileURLs={true} javaScriptEnabled={true} domStorageEnabled={true} />
           
-          <View style={styles.navBar}>
-            <TouchableOpacity onPress={() => changePage(-1)} style={styles.navBtn} disabled={currentPage <= 1}>
-              <Ionicons name="chevron-back" size={28} color={currentPage <= 1 ? "#C7C7CC" : "#007AFF"} />
+          {/* Плавающие кнопки */}
+          <View style={styles.fabContainer}>
+            <TouchableOpacity style={[styles.fab, { backgroundColor: '#007AFF' }]} onPress={explainPage}>
+              <Ionicons name="book" size={22} color="#FFF" />
             </TouchableOpacity>
-            
-            <View style={styles.pageIndicator}>
-              <Text style={styles.pageText}>{currentPage} / {totalPages}</Text>
-              {savedPage && (
-                <TouchableOpacity onPress={goToBookmark} style={{ marginTop: 5 }}>
-                  <Text style={{ color: '#C29B57', fontSize: 12, fontWeight: 'bold' }}>К закладке (стр. {savedPage})</Text>
-                </TouchableOpacity>
-              )}
-            </View>
-
-            <TouchableOpacity onPress={() => changePage(1)} style={styles.navBtn} disabled={currentPage >= totalPages}>
-              <Ionicons name="chevron-forward" size={28} color={currentPage >= totalPages ? "#C7C7CC" : "#007AFF"} />
+            <TouchableOpacity style={[styles.fab, { backgroundColor: theme.accent }]} onPress={askAI}>
+              <Ionicons name="sparkles" size={24} color="#FFF" />
             </TouchableOpacity>
           </View>
+
+          {!isLandscape && (
+            <View style={[styles.navBar, { backgroundColor: theme.card, borderTopColor: theme.border }]}>
+              <TouchableOpacity onPress={() => changePage(-1)} disabled={currentPage <= 1}><Ionicons name="chevron-back" size={28} color={currentPage <= 1 ? theme.subtext : "#007AFF"} /></TouchableOpacity>
+              <View style={{ alignItems: 'center' }}>
+                <Text style={[styles.pageText, { color: theme.text }]}>{currentPage} / {totalPages}</Text>
+                {savedPage && <TouchableOpacity onPress={goToBookmark}><Text style={{ color: theme.accent, fontSize: 12, fontWeight: 'bold' }}>К закладке ({savedPage})</Text></TouchableOpacity>}
+              </View>
+              <TouchableOpacity onPress={() => changePage(1)} disabled={currentPage >= totalPages}><Ionicons name="chevron-forward" size={28} color={currentPage >= totalPages ? theme.subtext : "#007AFF"} /></TouchableOpacity>
+            </View>
+          )}
         </View>
-      ) : null}
+      )}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#FFFFFF', paddingTop: 50 },
-  header: { flexDirection: 'row', alignItems: 'center', paddingHorizontal: 12, paddingBottom: 12, gap: 8, backgroundColor: '#FFFFFF', borderBottomWidth: 1, borderBottomColor: '#E5E5EA' },
-  headerTitle: { flex: 1, fontSize: 17, fontWeight: '600', color: '#000' },
+  container: { flex: 1, paddingTop: 50 },
+  header: { flexDirection: 'row', alignItems: 'center', paddingHorizontal: 12, paddingBottom: 12, gap: 8, borderBottomWidth: 1 },
+  headerTitle: { flex: 1, fontSize: 17, fontWeight: '600' },
   backBtn: { padding: 4, marginLeft: -4 },
   headerIcon: { padding: 8 },
-  title: { fontSize: 24, fontWeight: 'bold', color: '#000', textAlign: 'center', marginTop: 20 },
-  soon: { fontSize: 16, color: '#8E8E93', textAlign: 'center', marginTop: 12 },
-  error: { fontSize: 16, color: '#FF3B30', textAlign: 'center', paddingHorizontal: 20, marginBottom: 20, lineHeight: 24 },
-  viewer: { flex: 1, backgroundColor: '#525659' },
-  center: { flex: 1, justifyContent: 'center', alignItems: 'center' },
-  loadingText: { marginTop: 16, fontSize: 16, color: '#8E8E93' },
-  retryBtn: { backgroundColor: '#007AFF', paddingHorizontal: 20, paddingVertical: 10, borderRadius: 8 },
-  retryText: { color: '#FFF', fontWeight: 'bold' },
   
-  navBar: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    backgroundColor: '#F2F2F7',
-    borderTopWidth: 1,
-    borderTopColor: '#E5E5EA',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    paddingBottom: 35,
-  },
-  navBtn: {
-    padding: 10,
-  },
-  pageIndicator: {
-    alignItems: 'center',
-  },
-  pageText: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#000',
-  }
+  fabContainer: { position: 'absolute', bottom: 80, right: 20, gap: 12 },
+  fab: { width: 56, height: 56, borderRadius: 28, justifyContent: 'center', alignItems: 'center', shadowColor: '#000', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.3, shadowRadius: 5, elevation: 8 },
+  
+  navBar: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderTopWidth: 1, paddingVertical: 10, paddingHorizontal: 20, paddingBottom: 35 },
+  pageText: { fontSize: 16, fontWeight: '600' }
 });
