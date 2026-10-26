@@ -6,21 +6,7 @@
     "orientation": "portrait",
     "icon": "./assets/icon.jpg",
     "userInterfaceStyle": "light",
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "ios": {
-      "supportsTablet": true
-    },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/icon.jpg",
-        "backgroundColor": "#F5F0E8"
-      }
-    },
-    "web": {
-      "favicon": "./assets/icon.jpg"
-    },
+    "newArchEnabled": false,
     "plugins": [
       "expo-router",
       [

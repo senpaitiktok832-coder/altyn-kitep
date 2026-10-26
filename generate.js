@@ -11,7 +11,7 @@ const generatedBooks = booksData.map(book => {
   let url = '';
   
   if (book.uploaded) {
-    // ЖЕЛЕЗОБЕТОННАЯ ЛОГИКА ТЕГОВ
+    // ЖЕЛЕЗОБЕТОННАЯ ЛОГИКА ТЕГОВ ДЛЯ РЕЛИЗОВ
     let releaseTag = 'v1'; // По умолчанию для 1-5 классов
     
     if (book.grade === 6) releaseTag = 'v2';

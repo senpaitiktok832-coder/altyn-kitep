@@ -160,6 +160,66 @@ export const books = [
     "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/1-rus-world-v1-2025.pdf"
   },
   {
+    "id": "1-kyr-other-2025",
+    "title": "Другое (2025)",
+    "subject": "Другое",
+    "grade": 1,
+    "lang": "kyr",
+    "year": "2025",
+    "type": "student",
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/1-kyr-other-2025.pdf"
+  },
+  {
+    "id": "1-rus-other-2025",
+    "title": "Другое (2025)",
+    "subject": "Другое",
+    "grade": 1,
+    "lang": "rus",
+    "year": "2025",
+    "type": "student",
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/1-rus-other-2025.pdf"
+  },
+  {
+    "id": "1-rus-other-2023",
+    "title": "Другое (2023)",
+    "subject": "Другое",
+    "grade": 1,
+    "lang": "rus",
+    "year": "2023",
+    "type": "student",
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/1-rus-other-2023.pdf"
+  },
+  {
+    "id": "1-rus-math-2023",
+    "title": "Математика (2023)",
+    "subject": "Математика",
+    "grade": 1,
+    "lang": "rus",
+    "year": "2023",
+    "type": "student",
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/1-rus-math-2023.pdf"
+  },
+  {
+    "id": "1-rus-music-2023",
+    "title": "Музыка (2023)",
+    "subject": "Музыка",
+    "grade": 1,
+    "lang": "rus",
+    "year": "2023",
+    "type": "student",
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/1-rus-music-2023.pdf"
+  },
+  {
+    "id": "1-rus-rus-2023",
+    "title": "Русский язык (2023)",
+    "subject": "Русский язык",
+    "grade": 1,
+    "lang": "rus",
+    "year": "2023",
+    "type": "student",
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/1-rus-rus-2023.pdf"
+  },
+  {
     "id": "2-kyr-art-2013",
     "title": "Көркөм өнөр (2013)",
     "subject": "ИЗО",
@@ -318,6 +378,106 @@ export const books = [
     "year": "2026",
     "type": "student",
     "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/2-rus-world-2026.pdf"
+  },
+  {
+    "id": "2-rus-other-2023",
+    "title": "Другое (2023)",
+    "subject": "Другое",
+    "grade": 2,
+    "lang": "rus",
+    "year": "2023",
+    "type": "student",
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/2-rus-other-2023.pdf"
+  },
+  {
+    "id": "2-rus-math-2023",
+    "title": "Математика (2023)",
+    "subject": "Математика",
+    "grade": 2,
+    "lang": "rus",
+    "year": "2023",
+    "type": "student",
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/2-rus-math-2023.pdf"
+  },
+  {
+    "id": "3-rus-other-2023",
+    "title": "Другое (2023)",
+    "subject": "Другое",
+    "grade": 3,
+    "lang": "rus",
+    "year": "2023",
+    "type": "student",
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/3-rus-other-2023.pdf"
+  },
+  {
+    "id": "3-rus-eng-2023",
+    "title": "Английский язык (2023)",
+    "subject": "Английский язык",
+    "grade": 3,
+    "lang": "rus",
+    "year": "2023",
+    "type": "student",
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/3-rus-eng-2023.pdf"
+  },
+  {
+    "id": "3-rus-art-2023",
+    "title": "ИЗО (2023)",
+    "subject": "ИЗО",
+    "grade": 3,
+    "lang": "rus",
+    "year": "2023",
+    "type": "student",
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/3-rus-art-2023.pdf"
+  },
+  {
+    "id": "3-kyr-other-2023",
+    "title": "Другое (2023)",
+    "subject": "Другое",
+    "grade": 3,
+    "lang": "kyr",
+    "year": "2023",
+    "type": "student",
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/3-kyr-other-2023.pdf"
+  },
+  {
+    "id": "3-rus-math-2023",
+    "title": "Математика (2023)",
+    "subject": "Математика",
+    "grade": 3,
+    "lang": "rus",
+    "year": "2023",
+    "type": "student",
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/3-rus-math-2023.pdf"
+  },
+  {
+    "id": "3-rus-music-2023",
+    "title": "Музыка (2023)",
+    "subject": "Музыка",
+    "grade": 3,
+    "lang": "rus",
+    "year": "2023",
+    "type": "student",
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/3-rus-music-2023.pdf"
+  },
+  {
+    "id": "3-rus-rus-2023",
+    "title": "Русский язык (2023)",
+    "subject": "Русский язык",
+    "grade": 3,
+    "lang": "rus",
+    "year": "2023",
+    "type": "student",
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/3-rus-rus-2023.pdf"
+  },
+  {
+    "id": "3-rus-lit-2023",
+    "title": "Литература (2023)",
+    "subject": "Литература",
+    "grade": 3,
+    "lang": "rus",
+    "year": "2023",
+    "type": "student",
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/3-rus-lit-2023.pdf"
   },
   {
     "id": "5-rus-rus",
