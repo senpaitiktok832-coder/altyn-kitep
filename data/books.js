@@ -1268,5 +1268,355 @@ export const books = [
     "year": "2026",
     "type": "student",
     "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/6-rus-science-p2-2026.pdf"
+  },
+  {
+    "id": "7-kyr-lit-2013",
+    "title": "Адабият (2013)",
+    "subject": "Литература",
+    "grade": 7,
+    "lang": "kyr",
+    "year": "2013",
+    "type": "student",
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/7-kyr-lit-2013.pdf"
+  },
+  {
+    "id": "7-kyr-lit-2015",
+    "title": "Кыргыз адабияты (2015)",
+    "subject": "Литература",
+    "grade": 7,
+    "lang": "kyr",
+    "year": "2015",
+    "type": "student",
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/7-kyr-lit-2015.pdf"
+  },
+  {
+    "id": "7-kyr-kyr-2012",
+    "title": "Кыргыз тили жана окутуу (2012)",
+    "subject": "Кыргызский язык",
+    "grade": 7,
+    "lang": "kyr",
+    "year": "2012",
+    "type": "student",
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/7-kyr-kyr-2012.pdf"
+  },
+  {
+    "id": "7-rus-eng-p1-2025",
+    "title": "Английский язык (Pupil's Book Ч.1, 2025)",
+    "subject": "Английский язык",
+    "grade": 7,
+    "lang": "rus",
+    "year": "2025",
+    "type": "student",
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/7-rus-eng-p1-2025.pdf"
+  },
+  {
+    "id": "7-rus-eng-p2-2025",
+    "title": "Английский язык (Pupil's Book Ч.2, 2025)",
+    "subject": "Английский язык",
+    "grade": 7,
+    "lang": "rus",
+    "year": "2025",
+    "type": "student",
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/7-rus-eng-p2-2025.pdf"
+  },
+  {
+    "id": "7-rus-eng-p3-2025",
+    "title": "Английский язык (Pupil's Book Ч.3, 2025)",
+    "subject": "Английский язык",
+    "grade": 7,
+    "lang": "rus",
+    "year": "2025",
+    "type": "student",
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/7-rus-eng-p3-2025.pdf"
+  },
+  {
+    "id": "7-kyr-eng-p1-2025",
+    "title": "Англис тили (Pupil's Book Ч.1, 2025)",
+    "subject": "Английский язык",
+    "grade": 7,
+    "lang": "kyr",
+    "year": "2025",
+    "type": "student",
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/7-kyr-eng-p1-2025.pdf"
+  },
+  {
+    "id": "7-kyr-eng-p2-2025",
+    "title": "Англис тили (Pupil's Book Ч.2, 2025)",
+    "subject": "Английский язык",
+    "grade": 7,
+    "lang": "kyr",
+    "year": "2025",
+    "type": "student",
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/7-kyr-eng-p2-2025.pdf"
+  },
+  {
+    "id": "7-kyr-eng-p3-2025",
+    "title": "Англис тили (Pupil's Book Ч.3, 2025)",
+    "subject": "Английский язык",
+    "grade": 7,
+    "lang": "kyr",
+    "year": "2025",
+    "type": "student",
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/7-kyr-eng-p3-2025.pdf"
+  },
+  {
+    "id": "7-rus-eng-2012",
+    "title": "Английский язык (2012)",
+    "subject": "Английский язык",
+    "grade": 7,
+    "lang": "rus",
+    "year": "2012",
+    "type": "student",
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/7-rus-eng-2012.pdf"
+  },
+  {
+    "id": "7-kyr-eng-2012",
+    "title": "Англис тили (2012)",
+    "subject": "Английский язык",
+    "grade": 7,
+    "lang": "kyr",
+    "year": "2012",
+    "type": "student",
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/7-kyr-eng-2012.pdf"
+  },
+  {
+    "id": "7-kyr-kyr-2015-v1",
+    "title": "Кыргыз тили (2015, В1)",
+    "subject": "Кыргызский язык",
+    "grade": 7,
+    "lang": "kyr",
+    "year": "2015",
+    "type": "student",
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/7-kyr-kyr-2015-v1.pdf"
+  },
+  {
+    "id": "7-kyr-kyr-2015-v2",
+    "title": "Кыргыз тили (2015, В2)",
+    "subject": "Кыргызский язык",
+    "grade": 7,
+    "lang": "kyr",
+    "year": "2015",
+    "type": "student",
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/7-kyr-kyr-2015-v2.pdf"
+  },
+  {
+    "id": "7-rus-kyr-2016",
+    "title": "Кыргыз тили жана окутуу (2016)",
+    "subject": "Кыргызский язык",
+    "grade": 7,
+    "lang": "rus",
+    "year": "2016",
+    "type": "student",
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/7-rus-kyr-2016.pdf"
+  },
+  {
+    "id": "7-kyr-rus-2010",
+    "title": "Орус тили (2010)",
+    "subject": "Русский язык",
+    "grade": 7,
+    "lang": "kyr",
+    "year": "2010",
+    "type": "student",
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/7-kyr-rus-2010.pdf"
+  },
+  {
+    "id": "7-kyr-lit-read-2009",
+    "title": "Литературное чтение (2009)",
+    "subject": "Литература",
+    "grade": 7,
+    "lang": "kyr",
+    "year": "2009",
+    "type": "student",
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/7-kyr-lit-read-2009.pdf"
+  },
+  {
+    "id": "7-kyr-alg-2009",
+    "title": "Алгебра (2009)",
+    "subject": "Математика",
+    "grade": 7,
+    "lang": "kyr",
+    "year": "2009",
+    "type": "student",
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/7-kyr-alg-2009.pdf"
+  },
+  {
+    "id": "7-kyr-alg-2003",
+    "title": "Алгебра (2003)",
+    "subject": "Математика",
+    "grade": 7,
+    "lang": "kyr",
+    "year": "2003",
+    "type": "student",
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/7-kyr-alg-2003.pdf"
+  },
+  {
+    "id": "7-rus-math-2025",
+    "title": "Математика (Учебник, 2025)",
+    "subject": "Математика",
+    "grade": 7,
+    "lang": "rus",
+    "year": "2025",
+    "type": "student",
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/7-rus-math-2025.pdf"
+  },
+  {
+    "id": "7-kyr-math-2025",
+    "title": "Математика (Учебник, 2025)",
+    "subject": "Математика",
+    "grade": 7,
+    "lang": "kyr",
+    "year": "2025",
+    "type": "student",
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/7-kyr-math-2025.pdf"
+  },
+  {
+    "id": "7-kyr-geom-2015",
+    "title": "Геометрия (2015)",
+    "subject": "Математика",
+    "grade": 7,
+    "lang": "kyr",
+    "year": "2015",
+    "type": "student",
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/7-kyr-geom-2015.pdf"
+  },
+  {
+    "id": "7-rus-science-2025",
+    "title": "Естественные науки (2025)",
+    "subject": "Естественные науки",
+    "grade": 7,
+    "lang": "rus",
+    "year": "2025",
+    "type": "student",
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/7-rus-science-2025.pdf"
+  },
+  {
+    "id": "7-kyr-science-2025",
+    "title": "Табигый илимдер (2025)",
+    "subject": "Естественные науки",
+    "grade": 7,
+    "lang": "kyr",
+    "year": "2025",
+    "type": "student",
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/7-kyr-science-2025.pdf"
+  },
+  {
+    "id": "7-rus-history-2012",
+    "title": "История КР (IX-XVIII вв, 2012)",
+    "subject": "История",
+    "grade": 7,
+    "lang": "rus",
+    "year": "2012",
+    "type": "student",
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/7-rus-history-2012.pdf"
+  },
+  {
+    "id": "7-kyr-history-2002",
+    "title": "Кыргызстан тарыхы (2002)",
+    "subject": "История",
+    "grade": 7,
+    "lang": "kyr",
+    "year": "2002",
+    "type": "student",
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/7-kyr-history-2002.pdf"
+  },
+  {
+    "id": "7-kyr-medieval-hist-2007",
+    "title": "Орто кылымдар тарыхы (2007)",
+    "subject": "История",
+    "grade": 7,
+    "lang": "kyr",
+    "year": "2007",
+    "type": "student",
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/7-kyr-medieval-hist-2007.pdf"
+  },
+  {
+    "id": "7-rus-society-2024",
+    "title": "Человек и общество (2024)",
+    "subject": "Человек и общество",
+    "grade": 7,
+    "lang": "rus",
+    "year": "2024",
+    "type": "student",
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/7-rus-society-2024.pdf"
+  },
+  {
+    "id": "7-kyr-society-2025",
+    "title": "Адам жана коом (2025)",
+    "subject": "Человек и общество",
+    "grade": 7,
+    "lang": "kyr",
+    "year": "2025",
+    "type": "student",
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/7-kyr-society-2025.pdf"
+  },
+  {
+    "id": "7-rus-info-2020",
+    "title": "Информатика (2020)",
+    "subject": "Информатика",
+    "grade": 7,
+    "lang": "rus",
+    "year": "2020",
+    "type": "student",
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/7-rus-info-2020.pdf"
+  },
+  {
+    "id": "7-rus-phys-2023",
+    "title": "Физика (2023)",
+    "subject": "Физика",
+    "grade": 7,
+    "lang": "rus",
+    "year": "2023",
+    "type": "student",
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/7-rus-phys-2023.pdf"
+  },
+  {
+    "id": "7-kyr-phys-2009",
+    "title": "Физика (2009)",
+    "subject": "Физика",
+    "grade": 7,
+    "lang": "kyr",
+    "year": "2009",
+    "type": "student",
+    "url": "https://github.com/senpaitiktok832-coder/altyn-kitep/releases/download/v1/7-kyr-phys-2009.pdf"
+  },
+  {
+    "id": "8-rus-math",
+    "title": "Алгебра",
+    "subject": "Математика",
+    "grade": 8,
+    "lang": "rus",
+    "year": "2023",
+    "type": "student",
+    "url": ""
+  },
+  {
+    "id": "9-rus-math",
+    "title": "Алгебра",
+    "subject": "Математика",
+    "grade": 9,
+    "lang": "rus",
+    "year": "2023",
+    "type": "student",
+    "url": ""
+  },
+  {
+    "id": "10-rus-math",
+    "title": "Алгебра",
+    "subject": "Математика",
+    "grade": 10,
+    "lang": "rus",
+    "year": "2023",
+    "type": "student",
+    "url": ""
+  },
+  {
+    "id": "11-rus-math",
+    "title": "Алгебра",
+    "subject": "Математика",
+    "grade": 11,
+    "lang": "rus",
+    "year": "2023",
+    "type": "student",
+    "url": ""
   }
 ];
